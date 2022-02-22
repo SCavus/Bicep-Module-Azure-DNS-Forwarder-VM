@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "availabilitySet": {
+      "value": {
+        "name": "avail-dnsforwarder#{{ region }}-01"
+      }
+    },
+    "networkInterface": {
+      "value": {
+        "name": "#{{ nc_networkinterface }}-dnsforwarder#{{ region }}",
+        "enableAcceleratedNetworking": true
+      }
+    },
+    "virtualMachine": {
+      "value": {
+        "name": "#{{ nc_virtualmachine }}azdns#{{ regionCode }}#{{ environment }}",
+        "computerName": "#{{ nc_virtualmachine }}azdns#{{ regionCode }}#{{ environment }}",
+        "diskType": "Premium_LRS",
+        "size": "Standard_D2s_v3",
+        "patchMode": "AutomaticByOS",
+        "enableHotpatching": false
+      }
+    },
+    "adminUsername": {
+      "value": "dnsadmin"
+    },
+    "adminPassword": {
+      "value": "capgemini123$"
+    },
+    "vnet": {
+      "value": {
+        "name": "#{{ nc_virtualnetwork }}-connectivity-#{{ region }}-#{{ environment }}-01",
+        "subnet": "#{{ nc_subnet }}-dnsforwarder-#{{ environment }}-01",
+        "resourceGroup": "#{{ nc_resourcegroup }}-connectivity-#{{ region }}-#{{ environment }}-01"
+      }
+    },
+    "location": {
+      "value": "#{{ location }}"
+    },
+    "environment": {
+      "value": "#{{ environment }}"
+    },
+    "staticIpAddressWest": {
+      "value": ["10.225.255.84", "10.225.255.85"]
+    },
+    "staticIpAddressNorth": {
+      "value": ["10.227.255.84", "10.227.255.85"]
+    }
+  }
+}

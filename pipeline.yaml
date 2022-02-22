@@ -1,0 +1,25 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - '*'
+  paths:
+    include:
+    - /dns-forwarder
+
+
+resources:
+  repositories:
+  - repository: PipelineCommon
+    name: #template repo
+    type: git
+    ref: main
+
+extends:
+  template: /templates/pipelines/common-arm-deploy.yaml@PipelineCommon
+  parameters:
+    templatePath: dns-forwarder
+    templateName: dns-forwarder-vm
+    deployFromFeature: ${{ parameters.deployFromFeature }}
+    projectName: 'connectivity-dns-forwarder'
+    serviceConnectionType: #SPN''
